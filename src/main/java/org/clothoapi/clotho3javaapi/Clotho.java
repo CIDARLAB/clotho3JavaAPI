@@ -244,6 +244,24 @@ public class Clotho implements MessageListener
         return messageExchange(queryString);
     }
     
+    public Object destroy(String objectId) 
+    {
+        channel = Channel.destroy;
+        
+        received = false;
+        successfulResult = false;
+        
+        requestId = getRequestId();
+        Map destroyMap = new HashMap();
+        destroyMap.put("channel", channel.toString());
+        destroyMap.put("data", objectId);
+        destroyMap.put("requestId", requestId);
+        
+        String queryString = queryString(destroyMap);
+        return messageExchange(queryString);
+    }
+    
+    
     public Object getAll(List<String> objectIdList) 
     {
         channel = Channel.getAll;
