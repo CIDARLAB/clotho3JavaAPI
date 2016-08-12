@@ -95,6 +95,23 @@ public class Clotho implements MessageListener
     }
     
     
+    public Object destroy(Map map) 
+    {
+        channel = Channel.destroy;
+        
+        received = false;
+        successfulResult = false;
+        
+        requestId = getRequestId();
+        Map queryMap = new HashMap();
+        queryMap.put("channel", channel.toString());
+        queryMap.put("data", map);
+        queryMap.put("requestId", requestId);
+        
+        String queryString = queryString(queryMap);
+        return messageExchange(queryString);
+    }
+    
     public Object createUser(Map map) 
     {
         channel = Channel.createUser;
