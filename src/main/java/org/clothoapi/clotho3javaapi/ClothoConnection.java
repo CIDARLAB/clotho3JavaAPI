@@ -37,10 +37,17 @@ public class ClothoConnection {
             SslContextFactory factory = new SslContextFactory(true);
             wsClient = new WebSocketClient(factory);
             wsClient.setMaxTextMessageBufferSize(Args.maxTextSize);
+            wsClient.setMaxBinaryMessageBufferSize(Args.maxTextSize);
+           
+            
             wsClient.start();
             fut = wsClient.connect(clothoSocket, uri);
             
             session = fut.get();
+            session.getPolicy().setMaxBinaryMessageBufferSize(Args.maxTextSize);
+            session.getPolicy().setMaxBinaryMessageSize(Args.maxTextSize);
+            session.getPolicy().setMaxTextMessageBufferSize(Args.maxTextSize);
+            session.getPolicy().setMaxTextMessageSize(Args.maxTextSize);
 //                    .get(10, TimeUnit.SECONDS);
             
         } catch (Exception ex) {
@@ -57,13 +64,19 @@ public class ClothoConnection {
         
         try {
             URI uri = new URI(clothoURI);
-            SslContextFactory ssl = new SslContextFactory();
-            wsClient = new WebSocketClient(ssl);
+            SslContextFactory factory = new SslContextFactory(true);
+            wsClient = new WebSocketClient(factory);
+            wsClient.setMaxTextMessageBufferSize(Args.maxTextSize);
             wsClient.setMaxBinaryMessageBufferSize(Args.maxTextSize);
             wsClient.start();
+            
             fut = wsClient.connect(clothoSocket, uri);
             
             session = fut.get();
+            session.getPolicy().setMaxBinaryMessageBufferSize(Args.maxTextSize);
+            session.getPolicy().setMaxBinaryMessageSize(Args.maxTextSize);
+            session.getPolicy().setMaxTextMessageBufferSize(Args.maxTextSize);
+            session.getPolicy().setMaxTextMessageSize(Args.maxTextSize);
 //                    .get(10, TimeUnit.SECONDS);
             
         } catch (Exception ex) {
